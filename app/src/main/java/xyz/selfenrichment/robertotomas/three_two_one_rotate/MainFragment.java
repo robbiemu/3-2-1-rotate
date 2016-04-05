@@ -31,7 +31,7 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         Integer pos = null;
         if (savedInstanceState != null){
-            pos = savedInstanceState.getInt(Grid_View.POSITION);
+            pos = savedInstanceState.getInt(getString(R.string.key_grid_view_position));
         }
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -46,7 +46,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ((Callback) getActivity())
-                        .onItemSelected(position);
+                        .onItemSelected(v, position);
             }
         });
 
@@ -66,6 +66,6 @@ public class MainFragment extends Fragment {
         /**
          * DetailFragmentCallback for when an item has been selected.
          */
-        void onItemSelected(int pos);
+        void onItemSelected(View view, int pos);
     }
 }
