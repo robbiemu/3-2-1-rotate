@@ -3,5 +3,7 @@
     <string name="title_pref_number_in_main">Number of results to show in main</string>
     <string name="action_settings">Settings</string>
     <string name="action_detail">Detailed View</string>
-    <integer name="tag_gridview_three_columns">3</integer>
+    <string name="tag_gridview_three_columns">3</string>
+    <string name="tag_gridview_two_columns">2</string>
+    <string name="tag_gridview_one_column">1</string>
 </resources>

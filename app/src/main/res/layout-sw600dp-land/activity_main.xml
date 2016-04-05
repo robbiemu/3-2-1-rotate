@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,10 +14,11 @@
     <fragment
         android:id="@+id/fragment_main"
         android:name="xyz.selfenrichment.robertotomas.three_two_one_rotate.MainFragment"
+        android:tag="@string/tag_gridview_one_column"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        android:tag="@integer/tag_gridview_one_column"
+        tools:context="xyz.selfenrichment.robertotomas.three_two_one_rotate.MainFragment"
         tools:layout="@layout/fragment_main" />
 
     <FrameLayout
