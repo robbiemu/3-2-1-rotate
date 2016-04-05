@@ -1,9 +1,8 @@
 package xyz.selfenrichment.robertotomas.three_two_one_rotate;
 
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -21,14 +20,13 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
             if (intent != null) { // if we came here by intent it is from the detail activity
                 int i = intent.getIntExtra( getString(R.string.key_grid_view_position), 0);
                 String s = intent.getStringExtra( getString(R.string.key_view_item_title) );
-                loadDetailInTwoPane(i,s);
-            }
-            // In two-pane mode, show the detail fragment in this activity by adding or replacing
-            // the fragmentcontainer in the xml-layout using a fragment transaction.
-            if (savedInstanceState == null) {
+                loadDetailInTwoPane(i, s);
+            } else if (savedInstanceState == null) {
+                // In two-pane mode, show the detail fragment in this activity by adding or replacing
+                // the fragmentcontainer in the xml-layout using a fragment transaction.
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragmentcontainer_detail,
-                                getGridViewFragment(), DetailFragment.class.getSimpleName())
+                                new Fragment(), DetailFragment.class.getSimpleName())
                         .commit();
             }
         }
@@ -39,27 +37,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
                 .findFragmentById(R.id.this_fragment_id));
         someFragment.prepareSomeStateForRender(someStateValue);
         */
-    }
-
-    @NonNull
-    private Fragment getGridViewFragment() {
-        Bundle args = null;
-
-        Intent i = getIntent();
-        if (i != null) {
-            args = new Bundle();
-            int scrollTo = i.getIntExtra(getString(R.string.key_grid_view_position),0);
-            args.putInt(getString(R.string.key_grid_view_position), scrollTo);
-
-            loadDetailInTwoPane(scrollTo, i.getStringExtra(
-                    getString(R.string.key_view_item_title)));
-        }
-
-        Fragment fragment = new Fragment();
-        if (args != null) {
-            fragment.setArguments(args);
-        }
-        return fragment;
     }
 
     /**
