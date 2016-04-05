@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
                         .replace(R.id.fragmentcontainer_detail,
                                 getGridViewFragment(), DetailFragment.class.getSimpleName())
                         .commit();
+            } else {
+                int i = savedInstanceState.getInt(getString(R.string.key_grid_view_position));
+                String s = savedInstanceState.getString(
+                        getString(R.string.key_view_item_title));
+                loadDetailInTwoPane(i,s);
             }
         }
 
@@ -44,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
             args = new Bundle();
             int scrollTo = i.getIntExtra(getString(R.string.key_grid_view_position),0);
             args.putInt(getString(R.string.key_grid_view_position), scrollTo);
+
+            loadDetailInTwoPane(scrollTo, i.getStringExtra(
+                    getString(R.string.key_view_item_title)));
         }
 
         Fragment fragment = new Fragment();
@@ -64,24 +72,26 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
         // We are splitting the logic here because we don't just need to load the detail fragment
         // with the data. We also need to completely switch activities if it is single-pane
         if (LayoutUtil.twoPanes(this)) {
-            Bundle args = new Bundle();
-            args.putString(
-                    getString(R.string.key_view_item_title),
-                    selectedText);
-            args.putInt(getString(R.string.key_grid_view_position), pos);
-
-            DetailFragment fragment = new DetailFragment();
-            fragment.setArguments(args);
-
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentcontainer_detail, fragment,
-                            DetailFragment.class.getSimpleName())
-                    .commit();
+            loadDetailInTwoPane(pos, selectedText);
         } else {
             Intent intent = new Intent(this, DetailActivity.class)
                     .putExtra(getString(R.string.key_view_item_title), selectedText)
                     .putExtra(getString(R.string.key_grid_view_position), pos);
             startActivity(intent);
         }
+    }
+
+    private void loadDetailInTwoPane(int pos, String title) {
+        Bundle args = new Bundle();
+        args.putString(getString(R.string.key_view_item_title), title);
+        args.putInt(getString(R.string.key_grid_view_position), pos);
+
+        DetailFragment fragment = new DetailFragment();
+        fragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentcontainer_detail, fragment,
+                        DetailFragment.class.getSimpleName())
+                .commit();
     }
 }

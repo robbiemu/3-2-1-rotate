@@ -15,12 +15,13 @@ import xyz.selfenrichment.robertotomas.three_two_one_rotate.lib.LayoutUtil;
  * activity.
  */
 public class DetailActivity extends AppCompatActivity {
+    private int mGridViewPosition;
+    private String mViewItemTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        handleScreenRotation();
 
         if (savedInstanceState == null) {
             Intent i = getIntent();
@@ -36,26 +37,34 @@ public class DetailActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragmentcontainer_detail, fragment)
                     .commit();
-        } // there is no else clause here, as the previous state will already have configured the
-        // textview in the fragment.
+        } else {
+            mGridViewPosition = savedInstanceState.getInt(
+                    getString(R.string.key_grid_view_position));
+            mViewItemTitle = savedInstanceState.getString(
+                    getString(R.string.key_view_item_title));
+
+            if(LayoutUtil.twoPanes(this)){ // if the screen rotated while on single pane, we need to
+                // translate to dual-pane presentation.
+                startActivity(new Intent(this, MainActivity.class)
+                                .putExtra(getString(R.string.key_grid_view_position), mGridViewPosition)
+                                .putExtra(getString(R.string.key_view_item_title), mViewItemTitle)
+                );
+            }
+        }
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-        handleScreenRotation();
+        TextView tv = (TextView) findViewById(R.id.textView);
+        outState.putInt(getString(R.string.key_grid_view_position), _getPositionFromTag(tv));
+        outState.putString(getString(R.string.key_view_item_title), _getTitle(tv));
     }
 
-    private void handleScreenRotation() {
-        if(LayoutUtil.twoPanes(this)){ // if the screen rotated while on single pane, we need to
-            // translate to dual-pane presentation.
-            TextView tv = (TextView) findViewById(R.id.textView);
-
-            int position = _getPositionFromTag(tv);
-            startActivity(new Intent(this, MainActivity.class).putExtra(
-                            getString(R.string.key_grid_view_position), position));
-        }
+    @NonNull
+    private String _getTitle(TextView tv) {
+        return (String) tv.getText();
     }
 
     @NonNull
