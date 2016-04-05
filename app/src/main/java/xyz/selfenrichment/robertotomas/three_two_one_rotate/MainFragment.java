@@ -36,7 +36,7 @@ public class MainFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mGridView = (GridView) rootView.findViewById(R.id.fragment_main);
+        mGridView = (GridView) rootView.findViewById(R.id.grid_view);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_list_item_1, Data.TITLES);
