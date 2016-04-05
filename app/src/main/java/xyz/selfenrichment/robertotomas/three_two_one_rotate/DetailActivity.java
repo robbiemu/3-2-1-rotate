@@ -46,7 +46,9 @@ public class DetailActivity extends AppCompatActivity {
             if(LayoutUtil.twoPanes(this)){ // if the screen rotated while on single pane, we need to
                 // translate to dual-pane presentation.
                 startActivity(new Intent(this, MainActivity.class)
-                                .putExtra(getString(R.string.key_grid_view_position), mGridViewPosition)
+                                .putExtra(
+                                        getString(R.string.key_grid_view_position),
+                                        mGridViewPosition)
                                 .putExtra(getString(R.string.key_view_item_title), mViewItemTitle)
                 );
             }

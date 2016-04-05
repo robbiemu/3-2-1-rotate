@@ -1,4 +1,5 @@
 package xyz.selfenrichment.robertotomas.three_two_one_rotate.lib;
+// Created by RobertoTomás on 0004, 4, 4, 2016.
 
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -7,10 +8,12 @@ import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 
 /**
- * Created by RobertoTomás on 0004, 4, 4, 2016.
+ * This is a common mixin for settings PreferenceFragments It sets the summaries based on selection,
+ * and binds data to stored preferences
  */
 public abstract class AbstractPreferenceFragment extends PreferenceFragment {
-    static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
+    static Preference.OnPreferenceChangeListener
+            sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();

@@ -17,6 +17,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
         setContentView(R.layout.activity_main);
 
         if (LayoutUtil.twoPanes(this)) {
+            Intent intent = getIntent();
+            if (intent != null) { // if we came here by intent it is from the detail activity
+                int i = intent.getIntExtra( getString(R.string.key_grid_view_position), 0);
+                String s = intent.getStringExtra( getString(R.string.key_view_item_title) );
+                loadDetailInTwoPane(i,s);
+            }
             // In two-pane mode, show the detail fragment in this activity by adding or replacing
             // the fragmentcontainer in the xml-layout using a fragment transaction.
             if (savedInstanceState == null) {
@@ -24,11 +30,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
                         .replace(R.id.fragmentcontainer_detail,
                                 getGridViewFragment(), DetailFragment.class.getSimpleName())
                         .commit();
-            } else {
-                int i = savedInstanceState.getInt(getString(R.string.key_grid_view_position));
-                String s = savedInstanceState.getString(
-                        getString(R.string.key_view_item_title));
-                loadDetailInTwoPane(i,s);
             }
         }
 
