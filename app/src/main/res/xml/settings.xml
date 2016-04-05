@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference android:key="pref_number_in_main"
+        android:defaultValue="20"
+        android:title="@string/title_pref_number_in_main" />
+</PreferenceScreen>
