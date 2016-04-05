@@ -39,6 +39,20 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
         */
     }
 
+    private void loadDetailInTwoPane(int pos, String title) {
+        Bundle args = new Bundle();
+        args.putString(getString(R.string.key_view_item_title), title);
+        args.putInt(getString(R.string.key_grid_view_position), pos);
+
+        DetailFragment fragment = new DetailFragment();
+        fragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentcontainer_detail, fragment,
+                        DetailFragment.class.getSimpleName())
+                .commit();
+    }
+
     /**
      * MainFragment Callback override - handles click events on gridview items
      * @param v - the calling view containing the data item
@@ -57,19 +71,5 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
                     .putExtra(getString(R.string.key_grid_view_position), pos);
             startActivity(intent);
         }
-    }
-
-    private void loadDetailInTwoPane(int pos, String title) {
-        Bundle args = new Bundle();
-        args.putString(getString(R.string.key_view_item_title), title);
-        args.putInt(getString(R.string.key_grid_view_position), pos);
-
-        DetailFragment fragment = new DetailFragment();
-        fragment.setArguments(args);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentcontainer_detail, fragment,
-                        DetailFragment.class.getSimpleName())
-                .commit();
     }
 }
